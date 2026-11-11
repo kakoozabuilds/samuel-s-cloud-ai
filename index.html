@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        body {
+            background-color: #ffffff;
+            color: #202124;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            width: 100%;
+            max-width: 720px;
+            margin-top: 12vh;
+            transition: margin-top 0.3s ease;
+        }
+        .container.has-results {
+            margin-top: 20px;
+        }
+        .logo {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 28px;
+            user-select: none;
+        }
+        .logo span:nth-child(1) { color: #4285F4; }
+        .logo span:nth-child(2) { color: #EA4335; }
+        .logo span:nth-child(3) { color: #FBBC05; }
+        .logo span:nth-child(4) { color: #4285F4; }
+        .logo span:nth-child(5) { color: #34A853; }
+        .logo span:nth-child(6) { color: #EA4335; }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            border: 1px solid #dfe1e5;
+            border-radius: 24px;
+            padding: 10px 18px;
+            box-shadow: 0 1px 6px rgba(32,33,36,0.12);
+            transition: box-shadow 0.2s;
+            background: #fff;
+        }
+        .search-box:hover, .search-box:focus-within {
+            box-shadow: 0 2px 8px rgba(32,33,36,0.22);
+            border-color: rgba(223,225,229,0);
+        }
+        .search-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            color: #202124;
+            background: transparent;
+        }
+        .search-btn {
+            background-color: #f8f9fa;
+            border: 1px solid #f8f9fa;
+            border-radius: 18px;
+            color: #3c4043;
+            font-size: 14px;
+            padding: 8px 16px;
+            cursor: pointer;
+            margin-left: 10px;
+            font-weight: 500;
+        }
+        .search-btn:hover {
+            border-color: #dadce0;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+            color: #202124;
+        }
+        .quick-links {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+        .quick-btn {
+            background: #f1f3f4;
+            border: none;
+            border-radius: 16px;
+            padding: 6px 14px;
+            font-size: 13px;
+            color: #3c4043;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .quick-btn:hover {
+            background: #e8eaed;
+        }
+        .status {
+            margin-top: 24px;
+            font-size: 14px;
+            color: #70757a;
+            text-align: center;
+        }
+        .results-area {
+            margin-top: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .answer-card {
+            background: #f8f9fa;
+            border: 1px solid #e8eaed;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .answer-card h2 {
+            font-size: 18px;
+            color: #1a0dab;
+            margin-bottom: 8px;
+        }
+        .answer-card p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #3c4043;
+            margin-bottom: 12px;
+        }
+        .source-badge {
+            display: inline-block;
+            font-size: 12px;
+            color: #006621;
+            background: #e6f4ea;
+            padding: 3px 8px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .result-item {
+            padding-bottom: 14px;
+            border-bottom: 1px solid #ebebeb;
+        }
+        .result-item:last-child {
+            border-bottom: none;
+        }
+        .result-url {
+            font-size: 12px;
+            color: #202124;
+            margin-bottom: 3px;
+        }
+        .result-title {
+            font-size: 18px;
+            color: #1a0dab;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+        .result-title:hover {
+            text-decoration: underline;
+        }
+        .result-snippet {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #4d5156;
+        }
+        .searchmatch {
+            font-weight: bold;
+            color: #202124;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="mainContainer">
+        <div style="text-align: center; margin-bottom: 14px;">
+        <img src="me cpy.jpg" alt="Samuel's Cloud AI" style="width: 84px; height: 84px; border-radius: 50%; object-fit: cover;">
+    </div>
+
+    <div class="logo">
+        <span>S</span><span>a</span><span>m</span><span>u</span><span>e</span><span>l</span><span>'</span><span>s</span> <span>C</span><span>l</span><span>o</span><span>u</span><span>d</span> <span>A</span><span>I</span>
+    </div>
+
+
+    <form class="search-box" id="searchForm">
+        <input type="text" class="search-input" id="queryInput" placeholder="Ask any question or search a topic..." autocomplete="off" required>
+        <button type="submit" class="search-btn">Search</button>
+    </form>
+
+    <div class="quick-links" id="externalLinks" style="display: none;">
+        <a id="googleLink" class="quick-btn" target="_blank" rel="noopener noreferrer">Open in Google</a>
+        <a id="ddgLink" class="quick-btn" target="_blank" rel="noopener noreferrer">Open in DuckDuckGo</a>
+        <a id="scholarLink" class="quick-btn" target="_blank" rel="noopener noreferrer">Search Academic Papers</a>
+    </div>
+
+    <div class="status" id="statusMessage"></div>
+    <div class="results-area" id="resultsArea"></div>
+</div>
+
+<script>
+    const searchForm = document.getElementById('searchForm');
+    const queryInput = document.getElementById('queryInput');
+    const mainContainer = document.getElementById('mainContainer');
+    const statusMessage = document.getElementById('statusMessage');
+    const resultsArea = document.getElementById('resultsArea');
+    const externalLinks = document.getElementById('externalLinks');
+    const googleLink = document.getElementById('googleLink');
+    const ddgLink = document.getElementById('ddgLink');
+    const scholarLink = document.getElementById('scholarLink');
+
+    searchForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const rawQuery = queryInput.value.trim();
+        if (!rawQuery) return;
+
+        mainContainer.classList.add('has-results');
+        resultsArea.innerHTML = '';
+        statusMessage.textContent = 'Sourcing answers from public knowledge bases...';
+
+        const encodedQuery = encodeURIComponent(rawQuery);
+        googleLink.href = `https://www.google.com/search?q=${encodedQuery}`;
+        ddgLink.href = `https://duckduckgo.com/?q=${encodedQuery}`;
+        scholarLink.href = `https://scholar.google.com/scholar?q=${encodedQuery}`;
+        externalLinks.style.display = 'flex';
+
+        try {
+            const [ddgResponse, wikiResponse] = await Promise.all([
+                fetch(`https://api.duckduckgo.com/?q=${encodedQuery}&format=json&no_html=1&skip_disambig=1`).then(r => r.json()).catch(() => null),
+                fetch(`https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodedQuery}&utf8=&format=json&origin=*`).then(r => r.json()).catch(() => null)
+            ]);
+
+            statusMessage.textContent = '';
+            let hasContent = false;
+
+            if (ddgResponse && ddgResponse.AbstractText) {
+                hasContent = true;
+                const card = document.createElement('div');
+                card.className = 'answer-card';
+                card.innerHTML = `
+                    <h2>${ddgResponse.Heading || 'Direct Answer'}</h2>
+                    <p>${ddgResponse.AbstractText}</p>
+                    <a class="source-badge" href="${ddgResponse.AbstractURL}" target="_blank" rel="noopener noreferrer">
+                        Source: ${ddgResponse.AbstractSource || 'Reference'}
+                    </a>
+                `;
+                resultsArea.appendChild(card);
+            }
+
+            if (wikiResponse && wikiResponse.query && wikiResponse.query.search && wikiResponse.query.search.length > 0) {
+                hasContent = true;
+                const results = wikiResponse.query.search.slice(0, 6);
+                results.forEach(item => {
+                    const pageUrl = `https://en.wikipedia.org/?curid=${item.pageid}`;
+                    const div = document.createElement('div');
+                    div.className = 'result-item';
+                    div.innerHTML = `
+                        <div class="result-url">https://en.wikipedia.org › wiki › ${item.title.replace(/ /g, '_')}</div>
+                        <a class="result-title" href="${pageUrl}" target="_blank" rel="noopener noreferrer">${item.title}</a>
+                        <div class="result-snippet">${item.snippet}...</div>
+                    `;
+                    resultsArea.appendChild(div);
+                });
+            }
+
+            if (!hasContent) {
+                statusMessage.textContent = 'No instant summary matched your exact question. Use the quick search buttons above to view live web results.';
+            }
+
+        } catch (err) {
+            statusMessage.textContent = 'Unable to connect to live sources. Check your internet connection or use the quick search buttons above.';
+        }
+    });
+</script>
+
+</body>
+</html>
